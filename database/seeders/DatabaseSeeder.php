@@ -5,11 +5,17 @@ namespace Database\Seeders;
 use App\Models\Equipment;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        Schema::disableForeignKeyConstraints();
+        Equipment::truncate();
+        User::truncate();
+        Schema::enableForeignKeyConstraints();
+
         $alice = User::factory()->create([
             'name'  => 'Alice Smith',
             'email' => 'alice@example.com',
