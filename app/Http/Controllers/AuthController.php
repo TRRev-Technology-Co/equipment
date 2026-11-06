@@ -25,6 +25,12 @@ class AuthController extends Controller
             ]);
         }
 
+        if ($user->role !== 'admin') {
+            throw ValidationException::withMessages([
+                'email' => ['Only admins can access this API.'],
+            ]);
+        }
+
         return response()->json([
             'token' => $user->createToken('api')->plainTextToken,
         ]);
