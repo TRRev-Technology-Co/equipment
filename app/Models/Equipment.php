@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[Fillable(['name', 'user_id'])]
 class Equipment extends Model
 {
+    protected $table = 'equipments';
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
