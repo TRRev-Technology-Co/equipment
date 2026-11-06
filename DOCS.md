@@ -103,6 +103,40 @@ Returns all equipment, each with the single assigned user (or `null` if unassign
 
 ---
 
+### Assign / Unassign Equipment
+`PATCH /api/equipments/{id}/assign`
+
+**Assign** — pass a valid `user_id`:
+```json
+{ "user_id": 2 }
+```
+Returns `422` if equipment is already assigned to someone.
+
+**Unassign** — pass `null`:
+```json
+{ "user_id": null }
+```
+
+**Response** `200 OK`
+```json
+{
+  "id": 1,
+  "name": "Laptop Dell XPS",
+  "user_id": 2,
+  "user": {
+    "id": 2,
+    "name": "Bob Jones",
+    "email": "bob@example.com"
+  }
+}
+```
+
+**Errors**
+- `422` — already assigned (`"Equipment is already assigned. Unassign it first."`)
+- `422` — `user_id` does not exist in users table
+
+---
+
 ## Database Schema
 
 ### users
